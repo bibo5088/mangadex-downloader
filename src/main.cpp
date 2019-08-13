@@ -33,15 +33,23 @@ int main(int argc, char **argv) {
         for (auto &partial_chapter : partial_chapters) {
 
             fmt::print("Downloading info for chapter {}\n", partial_chapter.chapter);
-            auto chapter = partial_chapter.get_chapter();
-            fmt::print("Done downloading info for chapter {}\n", partial_chapter.chapter);
 
-            chapter.download_pages(option.output_directory / chapter.chapter, option.max_parallel_connection);
+            try {
+                auto chapter = partial_chapter.get_chapter();
+
+                fmt::print("Done downloading info for chapter {}\n", partial_chapter.chapter);
+
+                chapter.download_pages(option.output_directory / chapter.chapter, option.max_parallel_connection);
+            }
+            catch (std::runtime_error &e) {
+                std::cerr << e.what() << "\n";
+            }
         }
 
     }
     catch (std::exception &e) {
-        std::cerr << e.what();
+        std::cerr << e.what() << "\n";
+        return -1;
     }
 
 

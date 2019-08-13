@@ -49,6 +49,11 @@ void Chapter::download_pages(const std::filesystem::path &output_dir, int max_pa
 
             auto response = cpr::Get(cpr::Url{page_url});
 
+            if (response.error || response.status_code != 200) {
+                fmt::print(stderr, "Error downloading chapter {} page n°{} skipping\n", chapter, page);
+                return;
+            }
+
             auto extension = MIMEType(response.header["Content-Type"]).extension();
 
             //Save to file
