@@ -37,8 +37,17 @@ Manga Manga::from_json(const nlohmann::json &json) {
 Manga Manga::get(const std::string &manga_id) {
     auto response = cpr::Get(cpr::Url{"https://mangadex.org/api/manga/" + manga_id});
 
-    if (response.error || response.status_code != 200) {
-        throw MangaException(manga_id, response.status_code);
+    //Errors
+    if (response.error) {
+        throw std::runtime_error(
+                fmt::format(" \"Unable to download info for manga \"{}\"\n Error : {}", manga_id,
+                            response.error.message));
+    }
+
+    if (response.status_code != 200) {
+        throw std::runtime_error(
+                fmt::format(" \"Unable to download info for manga \"{}\"\n Status code : {}", manga_id,
+                            response.status_code));
     }
 
     return Manga::from_json(nlohmann::json::parse(response.text));

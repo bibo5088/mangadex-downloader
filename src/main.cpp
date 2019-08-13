@@ -36,9 +36,6 @@ int main(int argc, char **argv) {
         }
 
     }
-    catch (MangaException &e) {
-        fmt::print(stderr, "Unable to download info for manga \"{}\" status code : {}", e.manga_id, e.status_code);
-    }
     catch (std::exception &e) {
         std::cerr << e.what();
     }
