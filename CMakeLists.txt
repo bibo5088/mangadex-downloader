@@ -20,6 +20,12 @@ add_executable(mangadex_downloader ${SOURCE_FILES})
 target_include_directories(mangadex_downloader PRIVATE include)
 target_link_libraries(mangadex_downloader PRIVATE cpr nlohmann_json::nlohmann_json fmt::fmt CLI11::CLI11)
 target_compile_definitions(mangadex_downloader PRIVATE WIN32_LEAN_AND_MEAN NOMINMAX)
+#Warnings
+target_compile_options(mangadex_downloader PRIVATE
+        $<$<OR:$<CXX_COMPILER_ID:Clang>,$<CXX_COMPILER_ID:AppleClang>,$<CXX_COMPILER_ID:GNU>>:
+        -Wall>
+        $<$<CXX_COMPILER_ID:MSVC>:
+        /W4>)
 
 
 #Install
