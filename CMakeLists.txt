@@ -20,6 +20,7 @@ set(SOURCE_FILES src/main.cpp
 add_executable(mangadex_downloader ${SOURCE_FILES})
 target_include_directories(mangadex_downloader PRIVATE include)
 target_link_libraries(mangadex_downloader PRIVATE cpr CURL::libcurl ${ZLIB_LIBRARY} nlohmann_json::nlohmann_json fmt::fmt CLI11::CLI11)
+set_target_properties(mangadex_downloader PROPERTIES INTERPROCEDURAL_OPTIMIZATION True)
 target_compile_definitions(mangadex_downloader PRIVATE WIN32_LEAN_AND_MEAN NOMINMAX)
 #Warnings
 target_compile_options(mangadex_downloader PRIVATE
