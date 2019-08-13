@@ -1,9 +1,10 @@
-cmake_minimum_required(VERSION 3.14)
+cmake_minimum_required(VERSION 3.15)
 project(mangadex_downloader)
 
 set(CMAKE_CXX_STANDARD 17)
 
 find_package(cpr CONFIG REQUIRED)
+find_package(CURL CONFIG REQUIRED)
 find_package(nlohmann_json CONFIG REQUIRED)
 find_package(fmt CONFIG REQUIRED)
 find_package(CLI11 CONFIG REQUIRED)
@@ -18,7 +19,7 @@ set(SOURCE_FILES src/main.cpp
 
 add_executable(mangadex_downloader ${SOURCE_FILES})
 target_include_directories(mangadex_downloader PRIVATE include)
-target_link_libraries(mangadex_downloader PRIVATE cpr nlohmann_json::nlohmann_json fmt::fmt CLI11::CLI11)
+target_link_libraries(mangadex_downloader PRIVATE cpr CURL::libcurl ${ZLIB_LIBRARY} nlohmann_json::nlohmann_json fmt::fmt CLI11::CLI11)
 target_compile_definitions(mangadex_downloader PRIVATE WIN32_LEAN_AND_MEAN NOMINMAX)
 #Warnings
 target_compile_options(mangadex_downloader PRIVATE
@@ -26,7 +27,6 @@ target_compile_options(mangadex_downloader PRIVATE
         -Wall>
         $<$<CXX_COMPILER_ID:MSVC>:
         /W4>)
-
 
 #Install
 include(GNUInstallDirs)
