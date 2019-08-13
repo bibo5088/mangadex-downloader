@@ -4,7 +4,7 @@ A command line mangadex downloader
 # Usage
 Example :
  ```
-mangadex-downloader -m 27153 -o manga/jojo-part1/ -p 6 -l gb
+mangadex_downloader -m 27153 -o manga/jojo-part1/ -p 6 -l gb
  ```
 
 `-m, --manga` The mangadex ID of the manga (https://mangadex.org/title/[ID]/)  
