@@ -40,13 +40,13 @@ Manga Manga::get(const std::string &manga_id) {
     //Errors
     if (response.error) {
         throw std::runtime_error(
-                fmt::format(" \"Unable to download info for manga \"{}\"\n Error : {}", manga_id,
+                fmt::format("Unable to download info for manga \"{}\"\n Error : {}", manga_id,
                             response.error.message));
     }
 
     if (response.status_code != 200) {
         throw std::runtime_error(
-                fmt::format(" \"Unable to download info for manga \"{}\"\n Status code : {}", manga_id,
+                fmt::format("Unable to download info for manga \"{}\"\n Status code : {}", manga_id,
                             response.status_code));
     }
 
