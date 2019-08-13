@@ -31,7 +31,11 @@ int main(int argc, char **argv) {
         fmt::print("Found {} chapters in {}\n", partial_chapters.size(), option.lang_code);
 
         for (auto &partial_chapter : partial_chapters) {
+
+            fmt::print("Downloading info for chapter {}\n", partial_chapter.chapter);
             auto chapter = partial_chapter.get_chapter();
+            fmt::print("Done downloading info for chapter {}\n", partial_chapter.chapter);
+
             chapter.download_pages(option.output_directory / chapter.chapter, option.max_parallel_connection);
         }
 
