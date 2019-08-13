@@ -19,7 +19,7 @@ int main(int argc, char **argv) {
     CLI::App app("Mangadex downloader");
     Option option(app);
 
-    CLI11_PARSE(app, argc, argv);
+    CLI11_PARSE(app, argc, argv)
 
     try {
         auto manga = Manga::get(option.manga_id);
@@ -35,6 +35,9 @@ int main(int argc, char **argv) {
             chapter.download_pages(option.output_directory / chapter.chapter, option.max_parallel_connection);
         }
 
+    }
+    catch (MangaException &e) {
+        fmt::print(stderr, "Unable to download info for manga \"{}\" status code : {}", e.manga_id, e.status_code);
     }
     catch (std::exception &e) {
         std::cerr << e.what();

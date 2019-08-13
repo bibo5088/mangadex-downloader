@@ -37,6 +37,10 @@ Manga Manga::from_json(const nlohmann::json &json) {
 Manga Manga::get(const std::string &manga_id) {
     auto response = cpr::Get(cpr::Url{"https://mangadex.org/api/manga/" + manga_id});
 
+    if (response.error || response.status_code != 200) {
+        throw MangaException(manga_id, response.status_code);
+    }
+
     return Manga::from_json(nlohmann::json::parse(response.text));
 }
 
