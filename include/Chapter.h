@@ -9,6 +9,7 @@ struct Chapter {
     int id;
     std::string volume;
     std::string chapter;
+    std::string title;
     std::string lang_code;
     int manga_id;
 

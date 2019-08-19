@@ -13,6 +13,7 @@
 int main(int argc, char **argv) {
 
 #ifdef WIN32
+    //Allow more characters on the console
     SetConsoleOutputCP(65001);
 #endif
 
@@ -39,7 +40,7 @@ int main(int argc, char **argv) {
 
                 fmt::print("Done downloading info for chapter {}\n", partial_chapter.chapter);
 
-                chapter.download_pages(option.output_directory / chapter.chapter, option.max_parallel_connection);
+                chapter.download_pages(option.output_directory / (chapter.chapter + " - " + chapter.title), option.max_parallel_connection);
             }
             catch (std::runtime_error &e) {
                 std::cerr << e.what() << "\n";

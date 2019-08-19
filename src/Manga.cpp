@@ -28,7 +28,13 @@ Manga Manga::from_json(const nlohmann::json &json) {
 
     std::sort(manga.partial_chapters.begin(), manga.partial_chapters.end(),
               [](const PartialChapter &a, const PartialChapter &b) {
-                  return std::stod(a.chapter) < std::stod(b.chapter);
+                  try {
+                      return std::stod(a.chapter) < std::stod(b.chapter);
+                  }
+                  catch (...) {
+                      return true;
+                  }
+
               });
 
     return manga;

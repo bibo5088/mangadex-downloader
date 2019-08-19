@@ -14,6 +14,7 @@ Chapter Chapter::from_json(const nlohmann::json &json) {
     chapter.id = json["id"].get<int>();
     chapter.volume = json["volume"].get<std::string>();
     chapter.chapter = json["chapter"].get<std::string>();
+    chapter.title = json["title"].get<std::string>();
     chapter.lang_code = json["lang_code"].get<std::string>();
     chapter.manga_id = json["manga_id"].get<int>();
 
