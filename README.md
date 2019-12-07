@@ -22,7 +22,7 @@ cmake --build
  ```
 
 ## Dependencies
-* [cpr](https://github.com/whoshuu/cpr) (and it's dependencies)
+* [cpr](https://github.com/whoshuu/cpr) (and its dependencies)
 * [nlohmann_json](https://github.com/nlohmann/json)
 * [{fmt}](https://github.com/fmtlib/fmt)
 * [CLI11](https://github.com/CLIUtils/CLI11)
