@@ -3,7 +3,9 @@
 Option::Option(CLI::App &app) {
 
     app.add_option("-m, --manga", manga_id, "Mangadex id of the manga")
-    ->required(true);
+            ->required(true);
+
+    app.add_option("-c, --chapter", chapter_name, "Name of the chapter. Leave blank for all chapters");
 
     app.add_option("-o, --output", output_directory, "Output directory")
             ->required(true);

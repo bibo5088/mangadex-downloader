@@ -8,6 +8,7 @@ mangadex_downloader -m 27153 -o manga/jojo-part1/ -p 6 -l gb
  ```
 
 `-m, --manga` The mangadex ID of the manga (https://mangadex.org/title/[ID]/)  
+`-c, --chapter` The name of the wanted chapter. Leave blank to download all chapters
 `-o, --output` Output directory  
 `-l, --lang` Language of the chapter, lang code used by mangadex (gb for english, fr for french...) Default : gb  
 `-p, --parallel` Max number of request done in parallel while downloading pages (1-10) Default : 6  

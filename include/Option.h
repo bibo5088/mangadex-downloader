@@ -5,9 +5,10 @@
 #include <filesystem>
 
 struct Option {
-    explicit Option(CLI::App& app);
+    explicit Option(CLI::App &app);
 
     std::string manga_id;
+    std::string chapter_name = "";
     std::string lang_code = "gb";
     std::filesystem::path output_directory;
     int max_parallel_connection = 6;

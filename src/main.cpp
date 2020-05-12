@@ -1,4 +1,5 @@
 #include <iostream>
+#include <algorithm>
 #include <fmt/core.h>
 
 #ifdef WIN32
@@ -9,6 +10,23 @@
 
 #include "Manga.h"
 #include "Option.h"
+
+void download_chapter(const PartialChapter &partial_chapter, const std::filesystem::path &output_directory,
+                      const int max_parallel_connection) {
+    fmt::print("Downloading info for chapter {}\n", partial_chapter.chapter);
+
+    try {
+        auto chapter = partial_chapter.get_chapter();
+
+        fmt::print("Done downloading info for chapter {}\n", partial_chapter.chapter);
+
+        chapter.download_pages(output_directory / chapter.chapter, max_parallel_connection);
+    }
+    catch (std::runtime_error &e) {
+        std::cerr << e.what() << "\n";
+    }
+}
+
 
 int main(int argc, char **argv) {
 
@@ -31,20 +49,24 @@ int main(int argc, char **argv) {
 
         fmt::print("Found {} chapters in {}\n", partial_chapters.size(), option.lang_code);
 
-        for (auto &partial_chapter : partial_chapters) {
-
-            fmt::print("Downloading info for chapter {}\n", partial_chapter.chapter);
-
-            try {
-                auto chapter = partial_chapter.get_chapter();
-
-                fmt::print("Done downloading info for chapter {}\n", partial_chapter.chapter);
-
-                chapter.download_pages(option.output_directory / (chapter.chapter + " - " + chapter.title), option.max_parallel_connection);
+        //Download all chapters
+        if (option.chapter_name.length() == 0) {
+            for (auto &partial_chapter : partial_chapters) {
+                download_chapter(partial_chapter, option.output_directory, option.max_parallel_connection);
             }
-            catch (std::runtime_error &e) {
-                std::cerr << e.what() << "\n";
+        }
+            //Download a specific chapter
+        else {
+            auto wanted_partial_chapter = std::find_if(partial_chapters.begin(), partial_chapters.end(),
+                                                       [&](PartialChapter &partial_chapter) {
+                                                           return partial_chapter.chapter == option.chapter_name;
+                                                       });
+
+            if (wanted_partial_chapter == partial_chapters.end()) {
+                throw std::runtime_error(fmt::format("Cannot find chapter \"{}\"", option.chapter_name));
             }
+
+            download_chapter(*wanted_partial_chapter, option.output_directory, option.max_parallel_connection);
         }
 
     }
@@ -55,3 +77,4 @@ int main(int argc, char **argv) {
 
 
 }
+
